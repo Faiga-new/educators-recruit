@@ -2,18 +2,20 @@
 ## Instructions
 Implement this business scenario as a T SQL script. Create the table, insert the sample data, and write the queries for the reports.
 
-I have a recruiting company called Educators Connect, which specializes in helping educators find jobs, mainly right after graduating. 
-Every day we place many educators in different schools all over New York. 
-In order to conduct data analysis, we want to keep track of our educators and various details about them. 
+A sample implementation is provided in `educators.sql`. Run this script on a SQL Server database to create the table, insert the data, and execute the queries.
 
-I need to know the first name, last name, date of birth, gender, college attended, and title of their degree. 
-Then I need to know how they found out about recruiting company, the date they contacted us, which school we placed them in and the date we found them a job. 
+I have a recruiting company called Educators Connect, which specializes in helping educators find jobs, mainly right after graduating.
+Every day we place many educators in different schools all over New York.
+In order to conduct data analysis, we want to keep track of our educators and various details about them.
+
+I need to know the first name, last name, date of birth, gender, college attended, and title of their degree.
+Then I need to know how they found out about recruiting company, the date they contacted us, which school we placed them in and the date we found them a job.
 
 Reports:
-1. I need to know how many students from each college we were able to find jobs for in under 2 weeks. 
+1. I need to know how many students from each college we were able to find jobs for in under 2 weeks.
     This will help my company know which college's graduates we should try to attract to our company.
 2. Who were we more successful in placing, males or females?
-3. On average, how many people contact us every day and how many people fnd out about us per form of media. 
+3. On average, how many people contact us every day and how many people fnd out about us per form of media.
     This will help us decide which forms of media communication we should invest in.
 4. On average, how many people do we succeed in placing per day?
 5. How many educators get placed a day per type of education degree?
@@ -24,13 +26,13 @@ Answer: yes
 Question: What are the forms of media you use to advertise?
 Answer: We post ads about our company in magazines, newspapers, and social media sites. Sometimes people hear about us by word of mouth.
 Question: Do you specifically help graduates who graduated from a New York College?
-Answer: Not specifically. We help people who graduated from any college in the United States, but are living in New York. 
+Answer: Not specifically. We help people who graduated from any college in the United States, but are living in New York.
 Question: How long has your company been around?
 Answer: I opened up about 5 years ago, on February 17, 2017.
 Question: Are there any educators whom as of now, you have not succeeded in placing?
 Answer: Unfortunately yes. This is why I would like you to conduct reports to see the factors specific to educators we struggle to place.
 Question: Is there a certain degree level you mainly cater to?
-Answer: No. We help those with any level of education degree, whether it's a bachechelors, masters, or PhD
+Answer: No. We help those with any level of education degree, whether it's a bachchelors, masters, or PhD
 
 Sample Data:
 First name, last name, DOB, gender, college attended, title of degree, Media, date contacted, school placed, date found job
