@@ -1,11 +1,11 @@
 -- T-SQL implementation for the Educators Recruit business scenario
 -- Drop table if it already exists
-IF OBJECT_ID('dbo.Educators', 'U') IS NOT NULL
-    DROP TABLE dbo.Educators;
+IF OBJECT_ID('dbo.Educator', 'U') IS NOT NULL
+    DROP TABLE dbo.Educator;
 GO
 
 -- Create table to store educator information
-CREATE TABLE dbo.Educators (
+CREATE TABLE dbo.Educator (
     EducatorID INT IDENTITY PRIMARY KEY,
     FirstName NVARCHAR(50) NOT NULL,
     LastName NVARCHAR(50) NOT NULL,
@@ -20,8 +20,21 @@ CREATE TABLE dbo.Educators (
 );
 GO
 
+-- Add constraints enforcing business rules
+ALTER TABLE dbo.Educator
+    ADD CONSTRAINT CK_Educator_Gender CHECK (Gender IN ('male', 'female'));
+GO
+
+ALTER TABLE dbo.Educator
+    ADD CONSTRAINT CK_Educator_JobPlacement CHECK (
+        (DateFoundJob IS NULL AND SchoolPlaced IS NULL) OR
+        (DateFoundJob IS NOT NULL AND SchoolPlaced IS NOT NULL AND DateFoundJob >= DateContacted)
+    );
+GO
+
+
 -- Insert sample data
-INSERT INTO dbo.Educators
+INSERT INTO dbo.Educator
     (FirstName, LastName, DOB, Gender, CollegeAttended, DegreeTitle, Media, DateContacted, SchoolPlaced, DateFoundJob)
 VALUES
     ('Mary', 'Lynn', '2000-09-13', 'female', 'Excelsior College', 'BA in Mathematics Education', 'magazine', '2022-05-02', 'Brooklyn High School', '2022-05-09'),
@@ -41,7 +54,7 @@ This considers the difference between the date contacted and the date the job wa
 SELECT
     CollegeAttended,
     COUNT(*) AS PlacedWithinTwoWeeks
-FROM dbo.Educators
+FROM dbo.Educator
 WHERE DateFoundJob IS NOT NULL
   AND DATEDIFF(day, DateContacted, DateFoundJob) <= 14
 GROUP BY CollegeAttended
@@ -55,7 +68,7 @@ Counts educators with a non-null job placement date by gender.
 SELECT
     Gender,
     COUNT(*) AS PlacedCount
-FROM dbo.Educators
+FROM dbo.Educator
 WHERE DateFoundJob IS NOT NULL
 GROUP BY Gender;
 GO
@@ -67,7 +80,7 @@ SELECT
     AVG(ContactCount * 1.0) AS AvgContactsPerDay
 FROM (
     SELECT DateContacted, COUNT(*) AS ContactCount
-    FROM dbo.Educators
+    FROM dbo.Educator
     GROUP BY DateContacted
 ) AS Daily;
 GO
@@ -78,7 +91,7 @@ Report 3b: Number of people who found out about us per form of media
 SELECT
     Media,
     COUNT(*) AS ContactCount
-FROM dbo.Educators
+FROM dbo.Educator
 GROUP BY Media
 ORDER BY Media;
 GO
@@ -90,7 +103,7 @@ SELECT
     AVG(PlacedCount * 1.0) AS AvgPlacementsPerDay
 FROM (
     SELECT DateFoundJob, COUNT(*) AS PlacedCount
-    FROM dbo.Educators
+    FROM dbo.Educator
     WHERE DateFoundJob IS NOT NULL
     GROUP BY DateFoundJob
 ) AS DailyPlacements;
@@ -110,7 +123,7 @@ FROM (
             ELSE DegreeTitle
         END AS DegreeLevel,
         DateFoundJob
-    FROM dbo.Educators
+    FROM dbo.Educator
     WHERE DateFoundJob IS NOT NULL
 ) AS t
 GROUP BY DegreeLevel, DateFoundJob
@@ -125,6 +138,6 @@ SELECT
     LastName,
     DATEDIFF(year, DOB, GETDATE()) AS Age,
     DegreeTitle
-FROM dbo.Educators
+FROM dbo.Educator
 ORDER BY LastName, FirstName;
 GO

@@ -2,7 +2,7 @@
 ## Instructions
 Implement this business scenario as a T SQL script. Create the table, insert the sample data, and write the queries for the reports.
 
-A sample implementation is provided in `educators.sql`. Run this script on a SQL Server database to create the table, insert the data, and execute the queries.
+A sample implementation is provided in `educators.sql`. Run this script on a SQL Server database to create the `Educator` table, insert the data, and execute the queries.
 
 I have a recruiting company called Educators Connect, which specializes in helping educators find jobs, mainly right after graduating.
 Every day we place many educators in different schools all over New York.
